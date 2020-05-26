@@ -99,12 +99,5 @@ require_once __DIR__ . '/lib/header.php';
       <li>パスワードはIDと異なるものを入力してください。</li>
     </ul>
   </div>
-  <div class="memo">
-    <p>○登録すると以下の機能を利用することができます。</p>
-    <ul>
-      <li>スレッド作成</li>
-      <li>投稿または投稿の削除</li>
-    </ul>
-  </div>
 </div>
 <?php require_once __DIR__ . '/lib/footer.php' ?>
