@@ -66,7 +66,6 @@ require_once __DIR__ . '/lib/header.php';
 
 ?>
 
-<div class="thread">
   <div class="unlogin">
     <?php if (isset($error_message)) echo $error_message ?>
   </div>
@@ -80,13 +79,17 @@ require_once __DIR__ . '/lib/header.php';
   <div class="title">
     <h2><?php echo $title['title'] ?></h2><hr>
   </div>
-  <ul>
-    <?php foreach ($responses as $response) : ?>
-      <li>
-        <p><a href="user.php?user_id=<?php echo $response['user_id'] ?>"><?php echo "{$response['name']} @{$response['user_id']}" ?></a><?php echo " {$response['created_at']}" ?></p>
+  <?php foreach ($responses as $response) : ?>
+    <div class="row">
+      <div class="column">
+        <p><a href="user.php?user_id=<?php echo $response['user_id'] ?>"><?php echo "{$response['name']} @{$response['user_id']}" ?></a>
+        <?php echo " {$response['created_at']}" ?></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
         <p><?php echo nl2br($response['response']) ?></p>
-      </li>
-      <?php endforeach ?>
-  </ul><hr>
-</div>
+      </div>
+    </div><hr>
+  <?php endforeach ?>
 <?php require_once __DIR__ . '/lib/footer.php' ?>
