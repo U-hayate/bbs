@@ -11,6 +11,7 @@ if (isset($_POST['login_submit'])) {
             $pdo  = new PDO("mysql:host={$db_server};dbname={$db_name};charset=utf8", "{$db_user}", "{$db_pass}");
             $pdo -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             $pdo -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
             $sql      = 'select * from users where user_id=:user_id';
             $prepare  = $pdo -> prepare($sql);
             $prepare -> bindValue(':user_id', $_POST['user_id']);
@@ -25,6 +26,9 @@ if (isset($_POST['login_submit'])) {
                         'id'   => $result['user_id'],
                         'name' => $result['name'],
                     ];
+
+                    setcookie(session_name(), session_id(), time() + 60 * 60 * 24 * 3);
+
                     header('location: index.php');
                     exit;
                 }
@@ -36,10 +40,7 @@ if (isset($_POST['login_submit'])) {
 
     }
 
-    if (isset($_SESSION['user'])) {
-        header('location: index.php');
-        exit;
-    } else {
+    if (!isset($_SESSION['user'])) {
         $error_message = 'IDまたはパスワードが違います。';
     }
 }
@@ -48,23 +49,22 @@ require_once __DIR__ . '/lib/header.php';
 
 ?>
 
-<div class="login">
-  <div class="title"><h1>ログイン</h1></div>
-  <div class="form">
-    <form action="" method="post">
-      <table>
-        <tr>
-          <th>ID</th>
-          <td><input type="text" name="user_id" value="<?php if (isset($_POST['user_id'])) echo $_POST['user_id'] ?>"></td>
-        </tr>
-        <tr>
-          <th>パスワード</th>
-          <td><input type="password" name="password"></td>
-        </tr>
-      </table>
-    <div class="submit"><input type="submit" name="login_submit" value="ログイン"></div>
+<div class="title"><h1>ログイン</h1></div>
+<div class="form">
+  <form action="" method="post">
+    <table>
+      <tr>
+        <th>ID</th>
+        <td><input type="text" name="user_id" value="<?php if (isset($_POST['user_id'])) echo $_POST['user_id'] ?>"></td>
+      </tr>
+      <tr>
+        <th>パスワード</th>
+        <td><input type="password" name="password"></td>
+      </tr>
+    </table>
+    <input type="submit" name="login_submit" value="ログイン">
   </form>
 </div>
-  <?php if (isset($error_message)) echo $error_message ?>
-</div>
-  <?php require_once __DIR__ . '/lib/footer.php' ?>
+<?php if (isset($error_message)) echo $error_message ?>
+
+<?php require_once __DIR__ . '/lib/footer.php' ?>

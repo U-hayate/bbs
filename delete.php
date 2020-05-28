@@ -62,7 +62,7 @@ require_once __DIR__ . '/lib/header.php';
 
 ?>
 
-<div class="delete">
+<div style="text-align:center;">
   <?php if (!isset($_POST['delete_submit'])) : ?>
     <div class="form">
       <?php if (isset($_SESSION['user'])) : ?>

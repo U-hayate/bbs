@@ -6,10 +6,10 @@ function replace($str) {
 
 function id_validation($id) {
     $id_messages = [];
-    $pattern     = '/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{6,10}+\z/';
+    $pattern     = '/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{6,16}+\z/';
     preg_match("$pattern", $id, $matches);
     if (empty($matches)) {
-        $id_messages[] = 'IDは半角英小文字大文字数字を含む6文字以上10文字以下で入力してください。';
+        $id_messages[] = 'IDは半角英小文字大文字数字を含む6文字以上16文字以下で入力してください。';
     }
 
     return $id_messages;

@@ -59,32 +59,27 @@ require_once __DIR__ . '/lib/header.php';
 
 ?>
 
-<div class="signup">
-  <div class="title">
-    <h1>新規登録</h1>
-  </div>
-  <div class="form">
-    <form action="" method="post">
-      <table>
-        <tr>
-          <th>ID</th>
-          <td><input type="text" name="user_id" value="<?php if (isset($_POST['user_id'])) echo $_POST['user_id'] ?>"></td>
-        </tr>
-        <tr>
-          <th>名前</th>
-          <td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo $_POST['name'] ?>"></td>
-        </tr>
-        <tr>
-          <th>パスワード</th>
-          <td><input type="password" name="password"></td>
-        </tr>
-      </table>
-      <div class="submit"><input type="submit" name="btn_submit" value="登録"></div>
-    </form>
-  </div>
-  <div class="error">
+<h1>新規登録</h1>
+  <form action="" method="post">
+    <table>
+      <tr>
+        <th>ID</th>
+        <td><input type="text" name="user_id" value="<?php if (isset($_POST['user_id'])) echo $_POST['user_id'] ?>"></td>
+      </tr>
+      <tr>
+        <th>名前</th>
+        <td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo $_POST['name'] ?>"></td>
+      </tr>
+      <tr>
+        <th>パスワード</th>
+        <td><input type="password" name="password"></td>
+      </tr>
+    </table>
+    <input type="submit" name="btn_submit" value="登録">
+  </form>
+  <div style="color:red;">
     <?php if (isset($error_messages)) : ?>
-      <ul>
+      <ul style="list-style:none;">
         <?php foreach ($error_messages as $message) : ?>
           <li>※<?php echo $message ?></li>
         <?php endforeach ?>

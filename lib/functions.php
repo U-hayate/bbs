@@ -25,6 +25,24 @@ function unlogined () {
     }
 }
 
+// ページング
+function get_page() {
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    } else {
+        $page = 1;
+    }
+    return $page;
+}
 
+function paging($items, $page) {
+    $item_count = count($items);
+    $max_item   = 10;
+    $max_page   = ceil($item_count / $max_item);
+    $start_page = $max_item * ($page - 1);
+    $show_items = array_slice($items, $start_page, $max_item, true);
+
+    return [$show_items, $max_page];
+}
 
 ?>

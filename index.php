@@ -26,6 +26,10 @@ try {
     echo h($e -> getMessage());
 }
 
+$page = get_page();
+
+[$show_threads, $max_page] = paging($threads, $page);
+
 require_once __DIR__ . '/lib/header.php';
 
 ?>
@@ -47,7 +51,7 @@ require_once __DIR__ . '/lib/header.php';
     <tr>
       <th>No.</th><th>タイトル</th><th>投稿者</th><th>作成日時</th>
     </tr>
-    <?php foreach ($threads as $thread) : ?>
+    <?php foreach ($show_threads as $thread) : ?>
       <tr>
         <td><?php echo $thread['thread_id'] ?></td>
         <td><a href="thread.php?thread_id=<?php echo $thread['thread_id'] ?>"><?php echo $thread['title'] ?></a></td>
@@ -56,5 +60,10 @@ require_once __DIR__ . '/lib/header.php';
       </tr>
     <?php endforeach ?>
   </table>
+  <ul style="list-style:none; display:flex;">
+    <?php for ($i = 1; $i <= $max_page; $i++) : ?>
+      <li style="margin-right:5px;"><a class="button" href="index.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+    <?php endfor ?>
+  </ul>
 </div>
 <?php require_once __DIR__ . '/lib/footer.php' ?>

@@ -44,8 +44,6 @@ try {
     echo h($e -> getMessage());
 }
 
-$num = 1;
-
 require_once __DIR__ . '/lib/header.php';
 
 ?>
@@ -74,54 +72,64 @@ require_once __DIR__ . '/lib/header.php';
 
 <div class="threads">
   <h2>過去に立てたスレ</h2>
-  <table>
-    <tr>
-      <th>No.</th><th>タイトル</th><th>スレ主</th><th>作成日時</th><th></th>
-    </tr>
-    <?php foreach ($threads as $thread) : ?>
+  <?php if (empty($threads)) : ?>
+    <p>無し</p>
+  <?php else : ?>
+    <table>
       <tr>
-        <th><?php echo $num ?></th>
-        <td><a href="thread.php?thread_id=<?php echo $thread['thread_id'] ?>"><?php echo $thread['title'] ?></a></td>
-        <td><a href="user.php?user_id=<?php echo $thread['user_id'] ?>"><?php echo $thread['user_id'] ?></a></td>
-        <td><?php echo $thread['created_at'] ?></td>
-        <?php if (isset($_SESSION['user']) && $thread['user_id'] === $_SESSION['user']['id']) : ?>
-          <form action="delete.php" method="post">
-            <input type="hidden" name="delete_item" value="thread">
-            <input type="hidden" name="delete_id" value="<?php echo $thread['thread_id'] ?>">
-            <td><input type="submit" value="削除"></td>
-          </form>
-        <?php endif ?>
+        <th>No.</th><th>タイトル</th><th>スレ主</th><th>作成日時</th><th></th>
       </tr>
-      <?php $num++ ?>
-    <?php endforeach ?>
-  </table>
+      <?php foreach ($threads as $thread) : ?>
+        <tr>
+          <th><?php echo $thread['thread_id'] ?></th>
+          <td><a href="thread.php?thread_id=<?php echo $thread['thread_id'] ?>"><?php echo $thread['title'] ?></a></td>
+          <td><a href="user.php?user_id=<?php echo $thread['user_id'] ?>"><?php echo $thread['user_id'] ?></a></td>
+          <td><?php echo $thread['created_at'] ?></td>
+          <?php if (isset($_SESSION['user']) && $thread['user_id'] === $_SESSION['user']['id']) : ?>
+            <form action="delete.php" method="post">
+              <input type="hidden" name="delete_item" value="thread">
+              <input type="hidden" name="delete_id" value="<?php echo $thread['thread_id'] ?>">
+              <td><input type="submit" value="削除"></td>
+            </form>
+          <?php endif ?>
+        </tr>
+      <?php endforeach ?>
+    </table>
+  <?php endif ?>
 </div>
 
 <div class="responses">
   <h2>過去の投稿</h2>
-  <?php foreach ($responses as $response) : ?>
-    <div class="row">
-    <div class="column">
-        <p><a href="user.php?user_id=<?php echo $response['user_id'] ?>"><?php echo "{$response['name']} @{$response['user_id']}" ?></a>
-        <?php echo " {$response['created_at']} " ?>
-        <a href="thread.php?thread_id=<?php echo $response['thread_id'] ?>"><?php echo $response['title'] ?></a></p>
-    </div>
-    </div>
-    <div class="row">
-    <div class="column">
-        <p><?php echo nl2br($response['response']) ?></p>
-    </div>
-    </div>
-    <div class="row">
+  <?php if (empty($responses)) : ?>
+    <p>無し</p>
+  <?php else : ?>
+    <?php foreach ($responses as $response) : ?>
+      <div class="row">
       <div class="column">
-        <form action="delete.php" method="post">
-          <input type="hidden" name="delete_item" value="response">
-          <input type="hidden" name="delete_id" value="<?php echo $response['response_id'] ?>">
-          <input type="submit" value="削除">
-        </form>
-        <?php ?>
+          <p><a href="user.php?user_id=<?php echo $response['user_id'] ?>"><?php echo "{$response['name']} @{$response['user_id']}" ?></a>
+          <?php echo " {$response['created_at']} " ?>
+          <a href="thread.php?thread_id=<?php echo $response['thread_id'] ?>"><?php echo $response['title'] ?></a></p>
       </div>
-    </div><hr>
-  <?php endforeach ?>
+      </div>
+      <div class="row">
+      <div class="column">
+          <p><?php echo nl2br($response['response']) ?></p>
+      </div>
+      </div>
+      <?php if (isset($_SESSION['user']) && $_SESSION['user'] === $user_id) : ?>
+      <div class="row">
+        <div class="column">
+          <form action="delete.php" method="post">
+            <input type="hidden" name="delete_item" value="response">
+            <input type="hidden" name="delete_id" value="<?php echo $response['response_id'] ?>">
+            <input type="submit" value="削除">
+          </form>
+          <?php ?>
+        </div>
+      </div>
+      <?php endif ?>
+      <hr>
+    <?php endforeach ?>
+  <?php endif ?>
 </div>
 <?php require_once __DIR__ . '/lib/footer.php' ?>
