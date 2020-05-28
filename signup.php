@@ -44,6 +44,8 @@ if (isset($_POST['btn_submit'])) {
                     'name' => $name,
                 ];
 
+                setcookie(session_name(), session_id(), time() + 60 * 60 * 24 * 3);
+
                 header('location: index.php');
                 exit;
             }
