@@ -82,7 +82,7 @@ require_once __DIR__ . '/lib/header.php';
 
 ?>
 
-<div class="unlogin">
+<div style="color:red;">
   <?php if (isset($error_message)) echo $error_message ?>
 </div>
 <div class="form">

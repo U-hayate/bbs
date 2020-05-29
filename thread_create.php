@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Tokyo');
 require_once __DIR__ . '/conf/db_conf.php';
 require_once __DIR__ . '/lib/functions.php';
 require_once __DIR__ . '/lib/validation.php';
@@ -17,7 +16,7 @@ if (isset($_SESSION['user']) && isset($_POST['thread_submit'])) {
 
             $sql   = 'select * from threads where title=:title';
             $stmt  = $pdo -> prepare($sql);
-            $stmt -> bindValue(':title', $_POST['title']);
+            $stmt -> bindValue(':title', $title);
             $stmt -> execute();
 
             if (empty($stmt -> fetchAll())) {

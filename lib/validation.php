@@ -1,5 +1,6 @@
 <?php
 
+// 空白、改行を詰める
 function replace($str) {
     return preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $str);
 }
@@ -17,7 +18,7 @@ function id_validation($id) {
 
 function name_validation($name) {
     $name_messages = [];
-    if (!isset($name) || replace($name) === "") {
+    if (!isset($name) || empty(replace($name))) {
         $name_messages[] = 'ユーザー名を入力してください。';
     }
 
@@ -44,7 +45,7 @@ function pass_validation($pass, $id) {
 }
 
 function title_validation($title) {
-    if (!isset($title) || replace($title) === "") {
+    if (!isset($title) || empty(replace($title))) {
         return 'スレッド名を入力してください。';
     }
     if (mb_strlen($title) > 50) {

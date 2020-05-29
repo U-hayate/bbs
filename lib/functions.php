@@ -25,7 +25,7 @@ function unlogined () {
     }
 }
 
-// ページング
+// 現在のページ
 function get_page() {
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
@@ -35,6 +35,7 @@ function get_page() {
     return $page;
 }
 
+// ページング
 function paging($items, $page) {
     $item_count = count($items);
     $max_item   = 10;

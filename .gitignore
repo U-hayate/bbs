@@ -1,2 +1,5 @@
 #データベースのフォルダ
 conf/db_conf.php
+
+#テストデータ
+seed.php

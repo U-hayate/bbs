@@ -65,6 +65,10 @@ require_once __DIR__ . '/lib/header.php';
     <input type="submit" name="login_submit" value="ログイン">
   </form>
 </div>
-<?php if (isset($error_message)) echo $error_message ?>
+<div style="color:red;">
+  <?php if (isset($error_message)) : ?>
+    <p>※<?php echo $error_message ?></p>
+  <?php endif ?>
+</div>
 
 <?php require_once __DIR__ . '/lib/footer.php' ?>

@@ -20,7 +20,6 @@ if (isset($_POST['edit_submit'])) {
 
         $id_message     = id_validation($id);
         $name_message   = name_validation($name);
-
         $error_messages = array_merge($id_message, $name_message);
 
         if (!empty($error_messages)) {
@@ -69,25 +68,22 @@ require_once __DIR__ . '/lib/header.php';
 
 ?>
 
-
-<div class="user_edit">
-  <h2>編集</h2>
-  <div class="form">
-    <form action="user_edit.php" method="post">
-      <table>
-        <tr>
-          <td>ID</td>
-          <td><?php echo $user['user_id'] ?></td>
-        </tr>
-        <tr>
-          <td>ユーザー名</td>
-          <td><input type="text" name="name" value="<?php echo $user['name'] ?>"></td>
-        </tr>
-      </table>
-      <input type="hidden" name="id" value=<?php echo $_SESSION['user']['id'] ?>>
-      <td><input type="submit" name="edit_submit" value="保存"></td>
-    </form>
-  </div>
+<h2>編集</h2>
+<div class="form">
+  <form action="user_edit.php" method="post">
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><?php echo $user['user_id'] ?></td>
+      </tr>
+      <tr>
+        <td>ユーザー名</td>
+        <td><input type="text" name="name" value="<?php echo $user['name'] ?>"></td>
+      </tr>
+    </table>
+    <input type="hidden" name="id" value=<?php echo $_SESSION['user']['id'] ?>>
+    <td><input type="submit" name="edit_submit" value="保存"></td>
+  </form>
 </div>
 
 <?php require_once __DIR__ . '/lib/footer.php' ?>

@@ -18,8 +18,8 @@ if (isset($_POST['btn_submit'])) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $time     = date("Y-m-d H:i:s");
 
-        $sql = 'select * from users where user_id=:user_id';
-        $stmt = $pdo -> prepare($sql);
+        $sql   = 'select * from users where user_id=:user_id';
+        $stmt  = $pdo -> prepare($sql);
         $stmt -> bindValue(':user_id', $user_id);
         $stmt -> execute();
 

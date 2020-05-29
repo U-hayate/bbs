@@ -86,9 +86,4 @@ require_once __DIR__ . '/lib/header.php';
   <?php endif ?>
 </div>
 
-
-
-
-
-
 <?php require_once __DIR__ . '/lib/footer.php' ?>

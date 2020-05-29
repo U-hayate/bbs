@@ -24,4 +24,4 @@ require_once __DIR__ . '/lib/header.php';
   </form>
 </div>
 
-  <?php require_once __DIR__ . '/lib/footer.php' ?>
+<?php require_once __DIR__ . '/lib/footer.php' ?>

@@ -34,7 +34,7 @@ require_once __DIR__ . '/lib/header.php';
 
 ?>
 
-<div class="create">
+<div style="text-align:center;">
   <h2><a class="button" href="thread_create.php">スレを立てる</a></h2>
 </div>
 <div class="search">
