@@ -57,6 +57,12 @@ require_once __DIR__ . '/lib/header.php';
   <tr>
     <th>名前</th><td><?php echo $user['name'] ?></td>
   </tr>
+  <tr>
+    <th>登録日</th><td><?php echo $user['created_at'] ?></td>
+  </tr>
+  <tr>
+    <th>更新日</th><td><?php echo $user['updated_at'] ?></td>
+  </tr>
   <?php if (isset($_SESSION['user']) && $_SESSION['user']['id'] === $_GET['user_id']) : ?>
     <tr>
       <form action="user_edit.php" method="post">
@@ -114,10 +120,10 @@ require_once __DIR__ . '/lib/header.php';
           <p><?php echo nl2br($response['response']) ?></p>
       </div>
     </div>
-    <?php if (isset($_SESSION['user']) && $_SESSION['user'] === $user_id) : ?>
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']['id'] === $user_id) : ?>
       <div class="row">
         <div class="column">
-          <form action="delete.php" method="post">
+          <form action="delete.php" method="post" style="margin:0;">
             <input type="hidden" name="delete_item" value="response">
             <input type="hidden" name="delete_id" value="<?php echo $response['response_id'] ?>">
             <input type="submit" value="削除">
