@@ -109,7 +109,7 @@ require_once __DIR__ . '/lib/header.php';
     </div>
   </div><hr>
 <?php endforeach ?>
-<ul style="list-style:none; display:flex;">
+<ul style="list-style:none;display:flex;justify-content:center;">
   <?php for ($i = 1; $i <= $max_page; $i++) : ?>
     <li style="margin-right:5px;"><a class="button" href="thread.php?thread_id=<?php echo $thread_id ?>&page=<?php echo $i ?>"><?php echo $i ?></a></li>
   <?php endfor ?>

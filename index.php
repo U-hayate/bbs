@@ -8,12 +8,12 @@ try {
     $pdo -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $pdo -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    if (isset($_POST['search_submit'])) {
+    if (isset($_GET['search'])) {
         $sql   = 'select threads.thread_id, threads.title, threads.user_id, users.name, threads.created_at ';
         $sql  .= 'from threads INNER JOIN users on threads.user_id = users.user_id ';
         $sql  .= 'where title like :search order by thread_id desc';
         $stmt  = $pdo -> prepare($sql);
-        $stmt -> bindValue(':search', sprintf('%%%s%%', addcslashes($_POST['search'], '\_%')));
+        $stmt -> bindValue(':search', sprintf('%%%s%%', addcslashes($_GET['search'], '\_%')));
     } else {
         $sql   = 'select threads.thread_id, threads.title, threads.user_id, users.name, threads.created_at ';
         $sql  .= 'from threads INNER JOIN users on threads.user_id = users.user_id order by thread_id desc';
@@ -39,14 +39,15 @@ require_once __DIR__ . '/lib/header.php';
 </div>
 <div class="search">
   <h3>タイトル検索</h3>
-  <form action="" method="post">
+  <form action="" method="get">
     <div class="row">
-      <div class="column"><input type="search" name="search" value="<?php if (isset($_POST['search_submit'])) echo $_POST['search'] ?>"></div>
-      <div class="column-10"><input type="submit" name="search_submit" value="検索"></div>
+      <div class="column"><input type="search" name="search" value="<?php if (isset($_GET['search'])) echo $_GET['search'] ?>"></div>
+      <div class="column-10"><input type="submit" value="検索"></div>
     </div>
   </form>
 </div>
 <div class="threads">
+  <p style="text-align:center;"><?php echo "{$page} / {$max_page}" ?>ページ目</p>
   <table>
     <tr>
       <th>No.</th><th>タイトル</th><th>投稿者</th><th>作成日時</th>
@@ -60,10 +61,31 @@ require_once __DIR__ . '/lib/header.php';
       </tr>
     <?php endforeach ?>
   </table>
-  <ul style="list-style:none; display:flex;">
-    <?php for ($i = 1; $i <= $max_page; $i++) : ?>
-      <li style="margin-right:5px;"><a class="button" href="index.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
-    <?php endfor ?>
+  <p style="text-align:center;"><?php echo "{$page} / {$max_page}" ?>ページ目</p>
+  <ul style="list-style:none;display:flex;justify-content:center;">
+    <?php if ($page != 1) : ?>
+      <li style="margin-right:5px;"><a class="button" href="index.php?search=<?php if (isset($_GET['search'])) echo $_GET['search'] ?>&page=<?php echo ($page - 1) ?>">←</a></li>
+    <?php endif ?>
+    <?php if ($page > 5 && $max_page > 9) : ?>
+      <?php for ($i = ($page - 4); $i <= $page; $i++) : ?>
+        <li style="margin-right:5px;"><a class="button" href="index.php?search=<?php if (isset($_GET['search'])) echo $_GET['search'] ?>&page=<?php echo $i ?>"><?php echo $i ?></a></li>
+      <?php endfor ?>
+      <?php for ($i = ($page + 1); $i <= $page + 4; $i++) : ?>
+        <li style="margin-right:5px;"><a class="button" href="index.php?search=<?php if (isset($_GET['search'])) echo $_GET['search'] ?>&page=<?php echo $i ?>"><?php echo $i ?></a></li>
+      <?php endfor ?>
+    <?php elseif ($max_page > 9) : ?>
+      <?php for ($i = 1; $i <= 9; $i++) : ?>
+        <li style="margin-right:5px;"><a class="button" href="index.php?search=<?php if (isset($_GET['search'])) echo $_GET['search'] ?>&page=<?php echo $i ?>"><?php echo $i ?></a></li>
+      <?php endfor ?>
+    <?php else : ?>
+      <?php for ($i = 1; $i <= $max_page; $i++) : ?>
+        <li style="margin-right:5px;"><a class="button" href="index.php?search=<?php if (isset($_GET['search'])) echo $_GET['search'] ?>&page=<?php echo $i ?>"><?php echo $i ?></a></li>
+      <?php endfor ?>
+    <?php endif ?>
+    <?php if ($page != $max_page) : ?>
+      <li style="margin-right:5px;"><a class="button" href="index.php?search=<?php if (isset($_GET['search'])) echo $_GET['search'] ?>&page=<?php echo ($page + 1) ?>">→</a></li>
+    <?php endif ?>
   </ul>
 </div>
+
 <?php require_once __DIR__ . '/lib/footer.php' ?>
