@@ -27,8 +27,6 @@ if (isset($_POST['login_submit'])) {
                         'name' => $result['name'],
                     ];
 
-                    setcookie(session_name(), session_id(), time() + 60 * 60 * 24 * 3);
-
                     header('location: index.php');
                     exit;
                 }

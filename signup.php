@@ -13,8 +13,8 @@ if (isset($_POST['btn_submit'])) {
         $pdo -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $pdo -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-        $user_id  = $_POST['user_id'];
-        $name     = $_POST['name'];
+        $user_id  = h($_POST['user_id']);
+        $name     = h($_POST['name']);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $time     = date("Y-m-d H:i:s");
 
@@ -43,8 +43,6 @@ if (isset($_POST['btn_submit'])) {
                     'id'   => $user_id,
                     'name' => $name,
                 ];
-
-                setcookie(session_name(), session_id(), time() + 60 * 60 * 24 * 3);
 
                 header('location: index.php');
                 exit;
