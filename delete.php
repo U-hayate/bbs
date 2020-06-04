@@ -31,6 +31,7 @@ if (isset($_POST['delete_submit'])) {
                 }
 
                 $_SESSION['user'] = [];
+                setcookie(session_name(), '', time() - 1, '/');
                 session_destroy();
                 header('location: index.php');
                 exit;
